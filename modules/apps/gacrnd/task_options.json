@@ -1,0 +1,28 @@
+{
+  "source_type": [
+    "agb",
+    "agp",
+    "agt",
+    "agd",
+    "ag3",
+    "agc",
+    "age",
+    "agf",
+    "ags",
+    "agh"
+  ],
+  "data_type": [
+    "gacrnd"
+  ],
+  "cloud_type": [
+    "minio",
+    "volcano",
+    "obs",
+    "oss",
+    "s3"
+  ],
+  "mode": [
+    "prod",
+    "test"
+  ]
+}

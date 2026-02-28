@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GAC RnD 数据上传工具</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    >
+  </head>
+  <body class="bg-light">
+    <div class="container py-4">
+      <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2 class="mb-0">GAC RnD 数据上传工具</h2>
+        <span class="text-secondary">Flask + Bootstrap</span>
+      </div>
+
+      <form id="task-form">
+        <div class="card mb-4">
+          <div class="card-header">配置</div>
+          <div class="card-body">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="form-label" for="user-id">用户ID</label>
+                <input class="form-control" id="user-id" value="{{ default_user_id }}">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="user-pwd">sudo 密码</label>
+                <input class="form-control" id="user-pwd" type="password" placeholder="输入 sudo 密码">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label" for="docker-image">Docker 镜像</label>
+                <input class="form-control" id="docker-image" value="{{ default_docker_image }}">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>任务列表</span>
+            <button class="btn btn-sm btn-primary" type="button" id="add-task">添加任务</button>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table align-middle" id="task-table">
+                <thead>
+                  <tr>
+                    <th>输入路径</th>
+                    <th>输出路径</th>
+                    <th>数据源类型</th>
+                    <th>数据类型</th>
+                    <th>云服务类型</th>
+                    <th>运行模式</th>
+                    <th>状态</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="task-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-success" type="submit">开始上传</button>
+        </div>
+      </form>
+
+      <div class="card mt-4">
+        <div class="card-header">运行日志</div>
+        <div class="card-body">
+          <pre class="bg-white border rounded p-3 mb-0" id="log-area" style="height: 260px; overflow-y: auto;"></pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const taskOptions = {{ options | tojson }};
+      const taskBody = document.getElementById("task-body");
+      const logArea = document.getElementById("log-area");
+
+      function buildSelect(options, value) {
+        const select = document.createElement("select");
+        select.className = "form-select form-select-sm";
+        if (!options || options.length === 0) {
+          const emptyOpt = document.createElement("option");
+          emptyOpt.value = "";
+          emptyOpt.textContent = "无可用选项";
+          select.appendChild(emptyOpt);
+          return select;
+        }
+        options.forEach((item) => {
+          const opt = document.createElement("option");
+          opt.value = item;
+          opt.textContent = item;
+          select.appendChild(opt);
+        });
+        if (value) {
+          select.value = value;
+        }
+        return select;
+      }
+
+      function createCell(element) {
+        const cell = document.createElement("td");
+        cell.appendChild(element);
+        return cell;
+      }
+
+      function addTaskRow(task = {}) {
+        const row = document.createElement("tr");
+
+        const inputRoot = document.createElement("input");
+        inputRoot.className = "form-control form-control-sm";
+        inputRoot.dataset.field = "input_root";
+        inputRoot.value = task.input_root || "";
+
+        const outputRoot = document.createElement("input");
+        outputRoot.className = "form-control form-control-sm";
+        outputRoot.dataset.field = "output_root";
+        outputRoot.value = task.output_root || "";
+
+        const sourceSelect = buildSelect(taskOptions.source_type || [], task.source_type);
+        sourceSelect.dataset.field = "source_type";
+
+        const dataSelect = buildSelect(taskOptions.data_type || [], task.data_type);
+        dataSelect.dataset.field = "data_type";
+
+        const cloudSelect = buildSelect(taskOptions.cloud_type || [], task.cloud_type);
+        cloudSelect.dataset.field = "cloud_type";
+
+        const modeSelect = buildSelect(taskOptions.mode || [], task.mode);
+        modeSelect.dataset.field = "mode";
+
+        const status = document.createElement("span");
+        status.className = "task-status text-muted";
+        status.textContent = "等待";
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "btn btn-sm btn-outline-danger";
+        removeBtn.textContent = "删除";
+        removeBtn.addEventListener("click", () => row.remove());
+
+        row.appendChild(createCell(inputRoot));
+        row.appendChild(createCell(outputRoot));
+        row.appendChild(createCell(sourceSelect));
+        row.appendChild(createCell(dataSelect));
+        row.appendChild(createCell(cloudSelect));
+        row.appendChild(createCell(modeSelect));
+
+        const statusCell = document.createElement("td");
+        statusCell.appendChild(status);
+        row.appendChild(statusCell);
+
+        const actionCell = document.createElement("td");
+        actionCell.appendChild(removeBtn);
+        row.appendChild(actionCell);
+
+        taskBody.appendChild(row);
+      }
+
+      function collectTasks() {
+        const rows = taskBody.querySelectorAll("tr");
+        const tasks = [];
+        rows.forEach((row) => {
+          const task = {};
+          row.querySelectorAll("[data-field]").forEach((input) => {
+            task[input.dataset.field] = input.value.trim();
+          });
+          tasks.push(task);
+        });
+        return tasks;
+      }
+
+      async function submitTasks(event) {
+        event.preventDefault();
+        const tasks = collectTasks();
+        if (tasks.length === 0) {
+          logArea.textContent = "请至少添加一个任务。";
+          return;
+        }
+
+        logArea.textContent = "任务提交中，请稍候...";
+        const payload = {
+          user_id: document.getElementById("user-id").value.trim(),
+          user_pwd: document.getElementById("user-pwd").value,
+          docker_image: document.getElementById("docker-image").value.trim(),
+          tasks,
+        };
+
+        try {
+          const response = await fetch("/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await response.json();
+          if (!response.ok) {
+            logArea.textContent = data.error || "任务提交失败。";
+            return;
+          }
+
+          logArea.textContent = (data.logs || []).join("\n");
+          const statusCells = taskBody.querySelectorAll(".task-status");
+          (data.results || []).forEach((result, index) => {
+            if (statusCells[index]) {
+              statusCells[index].textContent = result.status || "失败";
+              statusCells[index].className = `task-status ${result.status === "成功" ? "text-success" : "text-danger"}`;
+            }
+          });
+        } catch (error) {
+          logArea.textContent = `任务提交失败: ${error}`;
+        }
+      }
+
+      document.getElementById("add-task").addEventListener("click", () => addTaskRow());
+      document.getElementById("task-form").addEventListener("submit", submitTasks);
+      addTaskRow();
+    </script>
+  </body>
+</html>
