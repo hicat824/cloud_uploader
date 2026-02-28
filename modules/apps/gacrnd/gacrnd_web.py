@@ -127,6 +127,9 @@ def _run_tasks(
     if not user_id:
         _append_log(logs, "错误: 用户ID不能为空")
         return logs, results
+    if not re.fullmatch(r"[A-Za-z0-9_]+", user_id):
+        _append_log(logs, "错误: 用户ID格式不正确")
+        return logs, results
     if not user_pwd:
         _append_log(logs, "错误: sudo 密码不能为空")
         return logs, results
@@ -157,7 +160,7 @@ def _run_tasks(
         source_type = (item.get("source_type") or "").strip()
         data_type = (item.get("data_type") or "").strip()
         cloud_type = (item.get("cloud_type") or "").strip()
-        mode = (item.get("mode") or item.get("run_mode") or "prod").strip()
+        mode = (item.get("mode") or "prod").strip()
 
         _append_log(logs, f"本地输入路径 ： {input_root}")
         _append_log(logs, f"本地输出路径 ： {output_root}")
