@@ -197,6 +197,14 @@ def _run_tasks(
             _append_log(logs, "输入/输出路径不能为空")
             failed_count += 1
             continue
+        if not os.path.isabs(input_root) or ".." in os.path.normpath(input_root).split(os.sep):
+            _append_log(logs, "输入路径必须为绝对路径且不能包含..")
+            failed_count += 1
+            continue
+        if not os.path.isabs(output_root) or ".." in os.path.normpath(output_root).split(os.sep):
+            _append_log(logs, "输出路径必须为绝对路径且不能包含..")
+            failed_count += 1
+            continue
         if not os.path.exists(input_root):
             _append_log(logs, f"路径不存在: {input_root}")
             failed_count += 1
