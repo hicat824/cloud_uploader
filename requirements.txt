@@ -1,3 +1,4 @@
 minio
 elasticsearch==7.13.4
+PySide6>=6.6.0
 # libboost-filesystem1.71.0
