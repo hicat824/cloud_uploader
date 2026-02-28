@@ -16,6 +16,7 @@ DEFAULT_USER_ID = "1001"
 DEFAULT_DOCKER_IMAGE = "127.0.0.1/kd-ad/oss_uploader_new:latest"
 DOCKER_RUN_USER = "hadoop"
 DOCKER_LOG_PATH = "/media/xumaozhou/logs"
+DOCKER_MAIN_PATH = "/home/hadoop/bin/main.py"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
@@ -124,7 +125,7 @@ def _run_tasks(
 ) -> Tuple[List[str], List[Dict[str, str]]]:
     logs: List[str] = []
     results: List[Dict[str, str]] = []
-    _append_log(logs, f"> ----- 任务开始，开始时间：{datetime.now()}")
+    _append_log(logs, "> ----- 任务开始")
 
     if not user_id:
         _append_log(logs, "错误: 用户ID不能为空")
@@ -243,7 +244,7 @@ def _run_tasks(
             "-v", "/etc/hosts:/etc/hosts",
             docker_image,
             "/bin/bash", "-c",
-            "umask 0000 && python3 /home/hadoop/bin/main.py"
+            f"umask 0000 && python3 {DOCKER_MAIN_PATH}"
             " -i \"$1\" -t \"$2\" -m \"$3\" -s \"$4\"",
             "bash",
             sub_task_info_file,
@@ -263,7 +264,7 @@ def _run_tasks(
         else:
             status["status"] = "成功"
 
-    _append_log(logs, f"> ----- 任务结束，结束时间：{datetime.now()}")
+    _append_log(logs, "> ----- 任务结束")
     if failed_count > 0:
         _append_log(logs, f"上传失败的任务数={failed_count}")
     return logs, results

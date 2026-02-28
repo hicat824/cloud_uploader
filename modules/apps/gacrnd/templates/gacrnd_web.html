@@ -222,7 +222,8 @@
             }
           });
         } catch (error) {
-          logArea.textContent = `任务提交失败: ${error}`;
+          const message = error && error.message ? error.message : error;
+          logArea.textContent = `任务提交失败: ${message}`;
         }
       }
 
