@@ -221,7 +221,7 @@ def _run_tasks(
             docker_image,
             "/bin/bash", "-c",
             "umask 0000 && python3 /home/hadoop/bin/main.py"
-            f" -i {sub_task_info_file} -t {source_type} -m {mode} -s {sn}",
+            f" -i {sub_task_info_file} -t {data_type} -m {mode} -s {sn}",
         ]
         proc = subprocess.run(docker_cmd, capture_output=True, text=True)
         if proc.stdout:
