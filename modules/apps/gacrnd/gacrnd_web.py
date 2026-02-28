@@ -162,12 +162,12 @@ def _run_tasks(
         cloud_type = (item.get("cloud_type") or "").strip()
         mode = (item.get("mode") or "prod").strip()
 
-        _append_log(logs, f"本地输入路径 ： {input_root}")
-        _append_log(logs, f"本地输出路径 ： {output_root}")
-        _append_log(logs, f"数据源类型 ： {source_type}")
-        _append_log(logs, f"数据类型 ： {data_type}")
-        _append_log(logs, f"云服务类型 ： {cloud_type}")
-        _append_log(logs, f"模式 ： {mode}")
+        _append_log(logs, f"本地输入路径：{input_root}")
+        _append_log(logs, f"本地输出路径：{output_root}")
+        _append_log(logs, f"数据源类型：{source_type}")
+        _append_log(logs, f"数据类型：{data_type}")
+        _append_log(logs, f"云服务类型：{cloud_type}")
+        _append_log(logs, f"模式：{mode}")
 
         status = {"status": "失败"}
         results.append(status)
@@ -189,7 +189,7 @@ def _run_tasks(
         if sn is None:
             _append_log(logs, "无法获取序列号")
             failed_count += 1
-            return logs, results
+            continue
         _append_log(logs, f"硬盘序列号: {sn}")
 
         task_info_dir = os.path.join(output_root, "taskInfos")
@@ -270,4 +270,4 @@ def submit():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    app.run(host="127.0.0.1", port=5000, debug=False)
