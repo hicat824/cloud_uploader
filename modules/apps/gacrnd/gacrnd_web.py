@@ -15,6 +15,7 @@ from flask import Flask, jsonify, render_template, request
 DEFAULT_USER_ID = "1001"
 DEFAULT_DOCKER_IMAGE = "127.0.0.1/kd-ad/oss_uploader_new:latest"
 DOCKER_RUN_USER = "hadoop"
+DOCKER_LOG_PATH = "/media/xumaozhou/logs"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
@@ -236,14 +237,19 @@ def _run_tasks(
             "--user", DOCKER_RUN_USER,
             "-v", f"{sub_task_info_file}:{sub_task_info_file}",
             "-v", f"{input_root}:{input_root}",
-            "-v", f"{output_root}/logs:/media/xumaozhou/logs",
+            "-v", f"{output_root}/logs:{DOCKER_LOG_PATH}",
             "-v", f"{output_root}:{output_root}",
             "-v", "/etc/localtime:/etc/localtime:ro",
             "-v", "/etc/hosts:/etc/hosts",
             docker_image,
             "/bin/bash", "-c",
             "umask 0000 && python3 /home/hadoop/bin/main.py"
-            f" -i {sub_task_info_file} -t {data_type} -m {mode} -s {sn}",
+            " -i \"$1\" -t \"$2\" -m \"$3\" -s \"$4\"",
+            "bash",
+            sub_task_info_file,
+            data_type,
+            mode,
+            sn,
         ]
         proc = subprocess.run(docker_cmd, capture_output=True, text=True)
         if proc.stdout:
