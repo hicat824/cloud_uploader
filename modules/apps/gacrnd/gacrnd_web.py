@@ -128,7 +128,7 @@ def _run_tasks(
     if not user_id:
         _append_log(logs, "错误: 用户ID不能为空")
         return logs, results
-    if not re.fullmatch(r"[A-Za-z0-9_]+", user_id):
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", user_id):
         _append_log(logs, "错误: 用户ID格式不正确")
         return logs, results
     if not user_pwd:
@@ -154,6 +154,9 @@ def _run_tasks(
 
     if not docker_image:
         _append_log(logs, "错误: Docker 镜像不能为空")
+        return logs, results
+    if not re.fullmatch(r"[A-Za-z0-9._/@:-]+", docker_image):
+        _append_log(logs, "错误: Docker 镜像名称格式不正确")
         return logs, results
 
     _append_log(logs, "更新本地docker......")
