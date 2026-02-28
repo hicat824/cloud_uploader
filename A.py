@@ -160,7 +160,7 @@ def read_recognition_format_file(input_file):
     return header, segcontours
 
 
-def draw_segcontour_instance(frame, segcontours):
+def draw_segcontour_instance(frame, segcontours, alpha=0.5):
     for segcontour in segcontours:
         segcontour_coordinates = segcontour.segcontour_coordinates
         segcontour_basicinfo = segcontour.segcontour_basicinfo
@@ -181,15 +181,10 @@ def draw_segcontour_instance(frame, segcontours):
         if len(segcontour_coordinates) > 0:
             points = [(int(coord.x), int(coord.y)) for coord in segcontour_coordinates]
 
-            # Draw polygon
+            # Draw polygon with transparency so later shapes don't fully occlude earlier ones
+            overlay = frame.copy()
             cv2.fillPoly(frame, [np.array(points, dtype=np.int32)], color=instance_color, lineType=cv2.LINE_8)
-
-            # # Add weighted frame
-            # temp_data = frame.copy()
-            # cv2.addWeighted(temp_data, 0.5, frame, 0.5, 0, frame)
-            alpha = 0.3
-            overlay = np.zeros_like(frame)
-            frame = cv2.addWeighted(frame, 1 - alpha, overlay, alpha, 0)
+            cv2.addWeighted(overlay, 1 - alpha, frame, alpha, 0, frame)
 
             # Display info
             display_info = "reproj_type: " + str(segcontour_basicinfo.reproj_type)
