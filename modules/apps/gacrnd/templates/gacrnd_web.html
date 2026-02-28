@@ -29,7 +29,7 @@
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="user-pwd">sudo 密码</label>
-                <input class="form-control" id="user-pwd" type="password" placeholder="输入 sudo 密码">
+                <input class="form-control" id="user-pwd" type="password" placeholder="输入 sudo 密码" autocomplete="new-password">
               </div>
               <div class="col-md-4">
                 <label class="form-label" for="docker-image">Docker 镜像</label>
@@ -182,6 +182,14 @@
         const tasks = collectTasks();
         if (tasks.length === 0) {
           logArea.textContent = "请至少添加一个任务。";
+          return;
+        }
+        const requiredFields = ["input_root", "output_root", "source_type", "data_type", "cloud_type", "mode"];
+        const missingIndex = tasks.findIndex((task) =>
+          requiredFields.some((field) => !task[field])
+        );
+        if (missingIndex !== -1) {
+          logArea.textContent = `请补全第 ${missingIndex + 1} 行任务信息。`;
           return;
         }
 

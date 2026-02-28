@@ -14,6 +14,7 @@ from flask import Flask, jsonify, render_template, request
 
 DEFAULT_USER_ID = "1001"
 DEFAULT_DOCKER_IMAGE = "127.0.0.1/kd-ad/oss_uploader_new:latest"
+DOCKER_RUN_USER = "hadoop"
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
@@ -134,6 +135,18 @@ def _run_tasks(
         _append_log(logs, "错误: sudo 密码不能为空")
         return logs, results
 
+    sudo_check = subprocess.run(
+        ["sudo", "-S", "-v"],
+        input=f"{user_pwd}\n",
+        text=True,
+        capture_output=True,
+    )
+    if sudo_check.returncode != 0:
+        _append_log(logs, "错误: sudo 密码校验失败")
+        if sudo_check.stderr:
+            _append_log(logs, sudo_check.stderr.strip())
+        return logs, results
+
     result = subprocess.run(["id", user_id], capture_output=True)
     if result.returncode != 0:
         _append_log(logs, f"错误: 用户ID {user_id} 不存在")
@@ -214,7 +227,7 @@ def _run_tasks(
         _append_log(logs, "创建上传任务......")
         docker_cmd = [
             "docker", "run", "--rm",
-            "--user", "hadoop",
+            "--user", DOCKER_RUN_USER,
             "-v", f"{sub_task_info_file}:{sub_task_info_file}",
             "-v", f"{input_root}:{input_root}",
             "-v", f"{output_root}/logs:/media/xumaozhou/logs",
@@ -270,4 +283,5 @@ def submit():
 
 
 if __name__ == "__main__":
+    app.logger.warning("Web UI 仅建议在受信任内网使用，sudo 密码将通过 HTTP 传输。")
     app.run(host="127.0.0.1", port=5000, debug=False)
