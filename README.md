@@ -99,6 +99,20 @@ python main.py -i /path/to/task_info.json -t zg -m test -s DISK_SN_002
 python main.py -i /path/to/task_info.json -t ag -m prod -s DISK_SN_003
 ```
 
+### Web UI（Flask）
+
+`modules/apps/gacrnd/gacrnd_web.py` 提供基于 Flask + Bootstrap 的 Web 启动器，支持动态添加任务：
+
+```bash
+python modules/apps/gacrnd/gacrnd_web.py
+```
+
+浏览器访问 `http://localhost:5000`，任务必填字段为 `input_root`、`output_root`、`source_type`、`data_type`、`cloud_type`、`mode`。
+下拉选项通过 `modules/apps/gacrnd/task_options.json` 配置。
+
+> 注意：Web UI 默认使用 Flask 开发服务器并通过 HTTP 传输 sudo 密码，仅建议在受信任的内网环境使用；生产部署请使用 Gunicorn/uWSGI 等 WSGI 服务，结合 Flask-Login/OAuth2 等认证方案，并启用 HTTPS/TLS。
+> Bootstrap 资源来自 CDN（带 SRI），如需离线或内网部署可改为本地静态资源。
+
 ### 任务配置文件（task_info.json）
 
 任务配置文件为 JSON 格式，定义数据输入/输出路径及上传相关参数，示例结构如下：
