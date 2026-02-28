@@ -129,7 +129,7 @@ def _run_tasks(
         _append_log(logs, "错误: 用户ID不能为空")
         return logs, results
     if not re.fullmatch(r"[A-Za-z0-9_-]+", user_id):
-        _append_log(logs, "错误: 用户ID格式不正确")
+        _append_log(logs, "错误: 用户ID格式不正确，仅允许字母、数字、下划线和连字符")
         return logs, results
     if not user_pwd:
         _append_log(logs, "错误: sudo 密码不能为空")
@@ -156,7 +156,10 @@ def _run_tasks(
         _append_log(logs, "错误: Docker 镜像不能为空")
         return logs, results
     if not re.fullmatch(r"[A-Za-z0-9._/@:-]+", docker_image):
-        _append_log(logs, "错误: Docker 镜像名称格式不正确")
+        _append_log(
+            logs,
+            "错误: Docker 镜像名称格式不正确，仅允许字母、数字、.、_、/、@、:、-",
+        )
         return logs, results
 
     _append_log(logs, "更新本地docker......")
