@@ -1,0 +1,479 @@
+%YAML:1.0
+---
+calib_meta:
+   vehicle_id: ""
+   calib_version: ""
+   calib_details: ""
+   calib_date: ""
+#
+#
+reference_at_body: 1
+#
+#
+camera_backward:
+   Intrinsic_param:
+      valid: true
+      model_type: PINHOLE
+      camera_name: camera_backward
+      image_width: 3840
+      image_height: 2160
+      distortion_parameters:
+         k1: 0.
+         k2: 0.
+         p1: 0.
+         p2: 0.
+         k3: 0.
+         k4: 0.
+         k5: 0.
+         k6: 0.
+      projection_parameters:
+         fx: 1.9093458900000001e+03
+         fy: 1.9094609150000001e+03
+         cx: 1.9229546800000001e+03
+         cy: 1.0839873070000001e+03
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 9.9519893946758906e-03, -1.6900985313727641e-03, -9.9994904943904162e-01, 5.4723829086017362e-02,
+          9.9994134732940854e-01, -4.2565346745034871e-03, 9.9591070690140948e-03, 1.3667934866764725e-01,
+          -4.2731496739053347e-03, -9.9998951268476766e-01, 1.6476384146416896e-03, 1.6583408747486148e+00,
+          0., 0., 0., 1. ]
+#
+#
+camera_backward_redundant:
+   Intrinsic_param:
+      valid: true
+      model_type: PINHOLE
+      camera_name: camera_backward_redundant
+      image_width: 0
+      image_height: 0
+      distortion_parameters:
+         k1: 0.
+         k2: 0.
+         p1: 0.
+         p2: 0.
+         k3: 0.
+         k4: 0.
+         k5: 0.
+         k6: 0.
+      projection_parameters:
+         fx: 0.
+         fy: 0.
+         cx: 0.
+         cy: 0.
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+camera_forward_far:
+   Intrinsic_param:
+      valid: true
+      model_type: PINHOLE
+      camera_name: camera_forward_far
+      image_width: 3840
+      image_height: 2160
+      distortion_parameters:
+         k1: 0.
+         k2: 0.
+         p1: 0.
+         p2: 0.
+         k3: 0.
+         k4: 0.
+         k5: 0.
+         k6: 0.
+      projection_parameters:
+         fx: 7.2844045610000003e+03
+         fy: 7.2844045610000003e+03
+         cx: 1.9216274470000001e+03
+         cy: 1.0716605020000000e+03
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 1.5294865724960987e-02, -2.2318651385786224e-02, 9.9963390542877029e-01, 2.1850434306870490e+00,
+          -9.9977424209224952e-01, 1.4405650466370878e-02, 1.5618645380103546e-02, 3.6898204757988939e-02,
+          -1.4748963737296660e-02, -9.9964711525365824e-01, -2.2093280284181425e-02, 1.4883518295280460e+00,
+          0., 0., 0., 1. ]
+#
+#
+camera_forward_wide:
+   Intrinsic_param:
+      valid: true
+      model_type: PINHOLE
+      camera_name: camera_forward_wide
+      image_width: 3840
+      image_height: 2160
+      distortion_parameters:
+         k1: 0.
+         k2: 0.
+         p1: 0.
+         p2: 0.
+         k3: 0.
+         k4: 0.
+         k5: 0.
+         k6: 0.
+      projection_parameters:
+         fx: 1.9145375130000000e+03
+         fy: 1.9145375130000000e+03
+         cx: 1.9224192780000001e+03
+         cy: 1.0771014130000001e+03
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 9.7159087181791885e-03, -8.9941525559920285e-03, 9.9991234932746953e-01, 2.1578010273444894e+00,
+          -9.9990019908374617e-01, 1.0169046719253838e-02, 9.8072606321188971e-03, 7.5228812339351900e-02,
+          -1.0256363393751515e-02, -9.9990784360791019e-01, -8.8944534016509435e-03, 1.4729064131108198e+00,
+          0., 0., 0., 1. ]
+#
+#
+camera_forward_wide_redundant:
+   Intrinsic_param:
+      valid: true
+      model_type: PINHOLE
+      camera_name: camera_forward_wide_redundant
+      image_width: 0
+      image_height: 0
+      distortion_parameters:
+         k1: 0.
+         k2: 0.
+         p1: 0.
+         p2: 0.
+         k3: 0.
+         k4: 0.
+         k5: 0.
+         k6: 0.
+      projection_parameters:
+         fx: 0.
+         fy: 0.
+         cx: 0.
+         cy: 0.
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+camera_left_front:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_left_front
+      image_width: 1920
+      image_height: 1200
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 1.1058623550000000e+03
+         fy: 1.1058127420000001e+03
+         cx: 9.5690572599999996e+02
+         cy: 6.0226130499999999e+02
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 7.6241955455468813e-01, -9.0120081432275914e-03, 6.4702025203378066e-01, 1.5497052641481033e+00,
+          -6.4707240728712367e-01, -4.8939323780053945e-03, 7.6241284692319178e-01, 6.0466003969587578e-01,
+          -3.7043974243197867e-03, -9.9994741518497143e-01, -9.5626515473890804e-03, 1.6328127253305169e+00,
+          0., 0., 0., 1. ]
+#
+#
+camera_left_rear:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_left_rear
+      image_width: 1920
+      image_height: 1200
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 1.1046153110000000e+03
+         fy: 1.1047725980000000e+03
+         cx: 9.6063917000000004e+02
+         cy: 5.9386720100000002e+02
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 7.5523537534750795e-01, -4.4847812104065209e-02, -6.5391758010714685e-01, 2.4450191607891516e+00,
+          6.5460226851801417e-01, 7.7405009571539229e-04, 7.5597306228298811e-01, 9.6293206434628664e-01,
+          -3.3397572887530265e-02, -9.9899353080784636e-01, 2.9942069555966091e-02, 8.7494467804043818e-01,
+          0., 0., 0., 1. ]
+#
+#
+camera_right_front:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_right_front
+      image_width: 1920
+      image_height: 1200
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 1.1079213090000001e+03
+         fy: 1.1078716190000000e+03
+         cx: 9.5530388800000003e+02
+         cy: 5.9772382600000003e+02
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ -7.6839831505640654e-01, 8.0655637933169481e-03, 6.3992107021035871e-01, 1.5528436412569777e+00,
+          -6.3986845753252775e-01, 8.2948241980885795e-03, -7.6843968725363598e-01, -5.7397873745864458e-01,
+          -1.1505932096908499e-02, -9.9993306904623269e-01, -1.2128290739409954e-03, 1.6478698619214192e+00,
+          0., 0., 0., 1. ]
+#
+#
+camera_right_rear:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_right_rear
+      image_width: 1920
+      image_height: 1200
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 1.1105417190000001e+03
+         fy: 1.1105069370000001e+03
+         cx: 9.5845629499999995e+02
+         cy: 5.9826273100000003e+02
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ -7.5973216689976564e-01, -1.9580914538410345e-02, -6.4994124531654873e-01, 2.4617384452832396e+00,
+          6.5010954382793917e-01, -3.1510274964943186e-03, -7.5983396347461674e-01, -9.3621235794199309e-01,
+          1.2830261167079910e-02, -9.9980331006231205e-01, 1.5123676366172184e-02, 8.7339640515762240e-01,
+          0., 0., 0., 1. ]
+#
+#
+camera_sur_front:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_sur_front
+      image_width: 0
+      image_height: 0
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 0.
+         fy: 0.
+         cx: 0.
+         cy: 0.
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+camera_sur_left:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_sur_left
+      image_width: 0
+      image_height: 0
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 0.
+         fy: 0.
+         cx: 0.
+         cy: 0.
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+camera_sur_rear:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_sur_rear
+      image_width: 0
+      image_height: 0
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 0.
+         fy: 0.
+         cx: 0.
+         cy: 0.
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+camera_sur_right:
+   Intrinsic_param:
+      valid: true
+      model_type: KANNALA_BRANDT
+      camera_name: camera_sur_right
+      image_width: 0
+      image_height: 0
+      projection_parameters:
+         k1: 0.
+         k2: 0.
+         k3: 0.
+         k4: 0.
+         fx: 0.
+         fy: 0.
+         cx: 0.
+         cy: 0.
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_primary_front:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_primary_left:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_primary_rear:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_primary_right:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_short_front:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_short_left:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_short_rear:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
+lidar_short_right:
+   Intrinsic_param:
+      valid: false
+   Extrinsic_param: !!opencv-matrix
+      rows: 4
+      cols: 4
+      dt: d
+      data: [ 0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0.,
+          0., 0., 0., 0. ]
+#
+#
